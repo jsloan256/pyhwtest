@@ -1,0 +1,1 @@
+obj-m := khwtest.o
