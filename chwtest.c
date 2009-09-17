@@ -44,6 +44,18 @@ static unsigned long base_address = 0;
 static unsigned long base_offset = 0;
 void *mmaped_ptr = NULL;
 
+static void open_khwtest(void)
+{
+	if (khwtest_fd != -1)
+		return;
+
+	khwtest_fd = open("/dev/khwtest", O_RDWR);
+	if (-1 == khwtest_fd) {
+		PyErr_SetFromErrnoWithFilename(PyExc_ImportError, "/dev/khwtest");
+		return;
+	}
+}
+
 static int mmap_address(unsigned long address) 
 {
 	unsigned long local_base;
@@ -132,6 +144,7 @@ readlw(unsigned long address)
 		return *((volatile unsigned long *)(mmaped_ptr + base_offset));
 	} else {
 		unsigned long int value;
+		open_khwtest();
 		if (-1 == lseek(khwtest_fd, address, SEEK_SET)) {
 			PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/khwtest");
 			return -1;
@@ -355,6 +368,7 @@ static PyObject *
 chwtest_allocdmapage(PyObject *self, PyObject *args)
 {
 	__u32 physical_address;
+	open_khwtest();
 	if (ioctl(khwtest_fd, KHWTEST_ALLOC_DMA_PAGE32, &physical_address)) {
 		PyErr_SetFromErrno(PyExc_IOError);
 		return NULL;
@@ -397,10 +411,4 @@ PyMODINIT_FUNC initchwtest(void)
 			"Failed to enable permissions to access IO space for this process.");
 		return;
 	}
-	khwtest_fd = open("/dev/khwtest", O_RDWR);
-	if (-1 == khwtest_fd) {
-		PyErr_SetFromErrnoWithFilename(PyExc_ImportError, "/dev/khwtest");
-		return;
-	}
-
 }

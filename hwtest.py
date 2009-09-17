@@ -3,13 +3,14 @@
 Contains functions for testing registers on physical boards.
 '''
 
+import sys
 import os
 
 if os.getuid() != 0:
     raise ImportError("You must be root to use the hwtest module")
 
 if os.system("modprobe khwtest"):
-    raise ImportError("Failed to load the khwtest module.")
+    sys.stderr.write("Failed to load the khwtest module.\n")
 
 import chwtest
 
