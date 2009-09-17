@@ -81,7 +81,7 @@ def outlw(address, value):
     '''
     Writes a long word to an IO port.
     '''
-    chwtest.outl(__convert(address), __convert(value))
+    chwtest.outlw(__convert(address), __convert(value))
 
 def alloc_dma_page():
     '''
