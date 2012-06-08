@@ -19,7 +19,7 @@ and then in this directory as root:
 
 You will also need to build and install the driver separately right now:
 [ ~]# make -C /lib/modules/`uname -r`/build M=`pwd` modules
-[ ~]# cp khwtest.ko /lib/modules/`uname -r`/misc
+[ ~]# cp khwtest.ko /lib/modules/`uname -r`/kernel/
 [ ~]# depmod -a
 
 USAGE

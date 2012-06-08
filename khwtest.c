@@ -189,7 +189,7 @@ static ssize_t khwtest_read(struct file * file, char __user * buf,
                  * uncached, then it must also be accessed uncached
                  * by the kernel or data corruption may occur
                  */
-                ptr = xlate_dev_mem_ptr(p);
+                ptr = __va(p);
                 if (!ptr)
                         return -EFAULT;
 
@@ -239,7 +239,7 @@ static ssize_t khwtest_write(struct file * file, const char __user * buf,
 		 * uncached, then it must also be accessed uncached
 		 * by the kernel or data corruption may occur
 		 */
-		ptr = xlate_dev_mem_ptr(p);
+		ptr = __va(p);
 
 		copied = copy_from_user(ptr, buf, sz);
 		if (copied) {
