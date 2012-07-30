@@ -46,7 +46,7 @@ def writew(address, value):
     ''' 
     Writes a word to a memory mapped IO register.
     '''
-    chwtest.writeb(__convert(address), __convert(value))
+    chwtest.writew(__convert(address), __convert(value))
 def writelw(address, value):
     ''' 
     Writes a long word to a memory mapped IO register.
