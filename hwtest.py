@@ -22,6 +22,14 @@ def __convert(address):
         address = -((address^0xffffffff)+1)
     return address
 
+def __convert16(address):
+    # This is a bit of ugliness due to the fact that python integerrs aren't
+    # limited by 32-bits.  If bit 31 is set, we need to make sure that we pass
+    # a negative number to the extension.
+    if address & 0x8000:
+        address = -((address^0xffff)+1)
+    return address
+
 def readb(address):
     '''
     Reads a byte in from memory mapped IO registers.
@@ -46,7 +54,7 @@ def writew(address, value):
     ''' 
     Writes a word to a memory mapped IO register.
     '''
-    chwtest.writew(__convert(address), __convert(value))
+    chwtest.writew(__convert(address), __convert16(value))
 def writelw(address, value):
     ''' 
     Writes a long word to a memory mapped IO register.
