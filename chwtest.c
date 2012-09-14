@@ -98,11 +98,11 @@ readb(unsigned long address)
 		return *((volatile unsigned char *)(mmaped_ptr + base_offset));
 	} else {
 		unsigned char value;
-		if (-1 == lseek(mem_fd, address, SEEK_SET)) {
+		if (-1 == lseek(khwtest_fd, address, SEEK_SET)) {
 			PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 			return -1;
 		} else {
-			if (-1 == read(mem_fd, &value, sizeof(value))) {
+			if (-1 == read(khwtest_fd, &value, sizeof(value))) {
 				PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 				return -1;
 			}
@@ -121,11 +121,11 @@ readw(unsigned long address)
 		return *((volatile unsigned short int *)(mmaped_ptr + base_offset));
 	} else {
 		unsigned short int value;
-		if (-1 == lseek(mem_fd, address, SEEK_SET)) {
+		if (-1 == lseek(khwtest_fd, address, SEEK_SET)) {
 			PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 			return -1;
 		} else {
-			if (-1 == read(mem_fd, &value, sizeof(value))) {
+			if (-1 == read(khwtest_fd, &value, sizeof(value))) {
 				PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 				return -1;
 			}
@@ -165,10 +165,10 @@ writeb(unsigned long address, unsigned char val)
 		mmap_address(address);
 		*(volatile unsigned char *)(mmaped_ptr + base_offset) = val;
 	} else {
-		if (-1 == lseek(mem_fd, address, SEEK_SET)) {
+		if (-1 == lseek(khwtest_fd, address, SEEK_SET)) {
 			PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 		} else {
-			if (-1 == write(mem_fd, &val, sizeof(val))) {
+			if (-1 == write(khwtest_fd, &val, sizeof(val))) {
 				PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 			}
 		}
@@ -182,10 +182,10 @@ writew(unsigned long address, unsigned short int val)
 		mmap_address(address);
 		*(volatile unsigned short int *)(mmaped_ptr + base_offset) = val;
 	} else {
-		if (-1 == lseek(mem_fd, address, SEEK_SET)) {
+		if (-1 == lseek(khwtest_fd, address, SEEK_SET)) {
 			PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 		} else {
-			if (-1 == write(mem_fd, &val, sizeof(val))) {
+			if (-1 == write(khwtest_fd, &val, sizeof(val))) {
 				PyErr_SetFromErrnoWithFilename(PyExc_IOError, "/dev/mem");
 			}
 		}
