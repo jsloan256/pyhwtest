@@ -106,8 +106,8 @@ khwtest_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-static int 
-khwtest_ioctl(struct inode *inode, struct file *file, unsigned int cmd, unsigned long data)
+static long
+khwtest_unlocked_ioctl(struct file *file, unsigned int cmd, unsigned long data)
 {
 	struct khwtest_pvt *pvt = file->private_data;
 	struct allocation *alloc;
@@ -142,6 +142,14 @@ khwtest_ioctl(struct inode *inode, struct file *file, unsigned int cmd, unsigned
 	};
 	return -ENOTTY;
 }
+
+#ifndef HAVE_UNLOCKED_IOCTL
+static int
+khwtest_ioctl(struct inode *inode, struct file *file, unsigned int cmd, unsigned long data)
+{
+	return khwtest_unlocked_ioctl(file, cmd, data);
+}
+#endif
 
 /*
  * This funcion reads the *physical* memory. The f_pos points directly to the
@@ -277,7 +285,11 @@ struct file_operations khwtest_fops = {
 	owner: THIS_MODULE,
 	open: khwtest_open,
 	release: khwtest_release,
+#ifdef HAVE_UNLOCKED_IOCTL
+	unlocked_ioctl: khwtest_unlocked_ioctl,
+#else
 	ioctl: khwtest_ioctl,
+#endif
 	write: khwtest_write,
 	llseek: khwtest_lseek,
 	read: khwtest_read,
