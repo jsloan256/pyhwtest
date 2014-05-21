@@ -5,7 +5,8 @@
  * buffers.  I know this is ugly, and is only to be used to facilitate testing
  * hardware when you don't want to introduce any new variables with drivers.
  *
- * Written by Shaun Ruffell <sruffell@digium.com>
+ * Copyright (c) 2009-2014, Shaun Ruffell <sruffell@sruffell.net>
+ * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +31,6 @@
 #include <linux/pci.h>
 #include <linux/mm.h>
 #include "khwtest.h"
-
-#define HERE() printk(KERN_DEBUG "HERE: %s:%d\n", __FILE__, __LINE__)
 
 static int debug = 0;
 const int khwtest_major = 0;
@@ -327,4 +326,4 @@ module_param(debug, int, 0644);
 module_init(khwtest_init);
 module_exit(khwtest_exit);
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("sruffell@digium.com");
+MODULE_AUTHOR("sruffell@sruffell.net");

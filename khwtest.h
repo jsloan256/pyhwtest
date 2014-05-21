@@ -4,7 +4,8 @@
  * memory in the system.  It also allows memory to be allocated for use as DMA
  * buffers.
  *
- * Written by Shaun Ruffell <sruffell@digium.com>
+ * Copyright (c) 2009-2014, Shaun Ruffell <sruffell@sruffell.net>
+ * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
