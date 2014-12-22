@@ -19,14 +19,17 @@ installed for you system.  On yum based systems:
 ```
 
 You will also need to build and install the driver separately right now. First make sure your kernel headers are installed. On RPM based systems:
+
 ```ShellSession
 # yum install kernel-devel
 ```
 or on Debian based systems:
+
 ```ShellSession
 # apt-get install linux-headers-`uname -r`
 ```
 
+Now build and install the khwtest module:
 
 ```ShellSession
 # make -C /lib/modules/`uname -r`/build M=`pwd` modules
