@@ -37,6 +37,10 @@ Now build and install the khwtest module:
 # depmod -a
 ```
 
+Also, please disable selinux or apparmor on your system. pyhwtest tries to map
+memory, which can be prevented by selinux depending on how pyhwtest is
+installed.
+
 # USAGE
 
 You must be root in order to use the hwtest module since it can access
