@@ -30,6 +30,7 @@
 #include <linux/uaccess.h>
 #include <linux/pci.h>
 #include <linux/mm.h>
+#include <linux/slab.h>
 #include "khwtest.h"
 
 static int debug = 0;
